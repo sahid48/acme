@@ -1,0 +1,19 @@
+.error{
+    color: red;
+  }
+  .empty-well{
+    background: transparent;
+  }
+
+  .bigger-icon{
+    font-size: 48px;
+  }
+
+  .footer-background {
+      background-color: black;
+      color: white;
+  }
+
+  .padding-left-8px{
+      padding-left: 8px;
+  }
