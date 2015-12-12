@@ -10,5 +10,7 @@ $router->map('GET', '/login', 'Acme\Controllers\RegisterController@getLogInPage'
 
 $router->map('GET', '/testdb', 'Acme\Controllers\RegisterController@getTestDB', 'testdb');
 
+$router->map('GET', '/about', 'Acme\Controllers\PageController@getShowPage', 'generic_page');
+
 
  ?>
