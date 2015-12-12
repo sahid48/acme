@@ -4,3 +4,4 @@ twig-templates/
 vendor
 .vagrant/
 .env
+phinx.yml
