@@ -22,8 +22,7 @@ class Validator
             //echo "verify password found";
             $name = "verify_password";
           }
-          if (isset($_REQUEST[$name]))
-          {
+
             $exploded = explode(":", $value);
             //echo $exploded[0]."<br>";
             switch ($exploded[0])
@@ -56,14 +55,10 @@ class Validator
                 }
                 break;
               default:
-                # code...
+                $errors[] = "No Values Found!";
                 break;
             }
-          }
-          else
-          {
-            $errors[] = "No Values Found!";
-          }
+
       }
       return $errors;
   }
