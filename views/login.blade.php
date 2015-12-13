@@ -10,14 +10,16 @@
       <div class="col-md-8">
         <h1>Login</h1>
 
+        @include('errormessage')
+
         <hr>
 
-        <form id="registerform" name="registerform" class="form-horizontal">
+        <form id="loginform" name="loginform" class="form-horizontal" method="post" action="login">
 
           <div class="form-group">
             <label for="email" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-              <input type="email" name="username" value="" class="form-control required email" id="email" placeholder="user@example.com">
+              <input type="email" name="email" value="" class="form-control required email" id="email" placeholder="user@example.com">
             </div>
           </div>
 
@@ -58,7 +60,7 @@
 
     $(document).ready(function() {
 
-      $("#registerform").validate({
+      $("#loginform").validate({
 
         rules: {
 
