@@ -1,5 +1,8 @@
 <?php
 
+$controller = null;
+$method = null;
+
 include(__DIR__. "/../bootstrap/start.php");
 
 //this file type use for password like trader_cdlshootingstar
@@ -86,6 +89,8 @@ include(__DIR__. "/../routes.php ");
 //return array
 $match = $router->match();
 
+//dd($match);
+
 //var_dump($match);
 //var_dump($match['target']);     //controller
 //var_dump($match['params']);     //method
@@ -94,17 +99,32 @@ $match = $router->match();
 
 //takes the Value from array and in one step assign those values to variables
 //http://www.w3schools.com/php/func_array_list.asp
-list($controller, $method) = explode("@", $match['target']);
-if (is_callable(array($controller, $method)))
+
+if (is_string($match['target']))
+{
+  list($controller, $method) = explode("@", $match['target']);
+}
+
+//this one is use for with methods
+if (($controller != null) && (is_callable(array($controller, $method))))
 {
     //create a new instance of a class, in this case
     //class name is PageController
     $object = new $controller();
     call_user_func_array(array($object, $method), array($match['params']));
 }
+
+//this one is use for closure
+elseif ($match && is_callable($match['target']))
+{
+    call_user_func_array($match['target'], $match['params']);
+}
 else
 {
     echo "Cannot find $controller -> $method";
     exit();
 }
+
+
+
  ?>

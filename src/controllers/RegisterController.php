@@ -84,6 +84,8 @@ class RegisterController extends BaseController
         $user->password   = password_hash($_REQUEST['password'], PASSWORD_DEFAULT);     //its different then laravel
         $user->save();
 
+        header("Location: /success");
+        exit();
         /*
         $_SESSION['success_msg'] = "You have been successfully Created";
         header("Location: /");
