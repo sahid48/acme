@@ -16,6 +16,9 @@
 
         <form id="loginform" name="loginform" class="form-horizontal" method="post" action="login">
 
+          <input type="hidden" name="_token" value="{!! htmlspecialchars($signer->getSignature()) !!}">
+
+
           <div class="form-group">
             <label for="email" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">

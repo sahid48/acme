@@ -3,6 +3,8 @@ namespace Acme\Controllers;
 
 //use Acme\Validation\Validator;
 use duncan3dc\Laravel\BladeInstance;
+use Kunststube\CSRFP\SignatureGenerator;
+
 /**
  *
  */
@@ -30,9 +32,17 @@ class BaseController
 
     protected $blade;
 
+    //for csrf
+    protected $signer;
+
     public function __construct()
     {
+        //for csrf
+        $this->signer = new SignatureGenerator(getenv('CSRF_SECRET'));
+
+        //for bloade
         $this->blade = new BladeInstance("/vagrant/views", "/vagrant/cache/views");
+
     }
 }
 

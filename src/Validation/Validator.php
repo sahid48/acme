@@ -22,6 +22,10 @@ class Validator
             //echo "verify password found";
             $name = "verify_password";
           }
+          if ($name == "emails") {
+            //echo "verify password found";
+            $name = "email";
+          }
 
             $exploded = explode(":", $value);
             //echo $exploded[0]."<br>";
@@ -52,6 +56,18 @@ class Validator
                 if(valid::equals($_REQUEST[$name])->validate($_REQUEST[$exploded[1]]) == false)
                 {
                   $errors[] = "Values does not match verification value!";
+                }
+                break;
+              case 'unique':
+              //echo "unique";
+                $model = "Acme\\models\\" . $exploded[1];
+                $table = new $model;
+                //dd($name);
+                $results = $table::where($name, '=', $_REQUEST[$name])->first();
+                //dd($results);
+                if ($results != null)
+                {
+                    $errors[] = $_REQUEST[$name]. " already exist in this system!";
                 }
                 break;
               default:

@@ -37,6 +37,7 @@ class PageController extends BaseController
     {
         $browser_title = "";
         $page_content  = "";
+        $page_id = 0;
         //echo "About";
         //extract page name form urldecode
 
@@ -52,6 +53,7 @@ class PageController extends BaseController
         {
             $browser_title = $item->browser_title;
             $page_content  = $item->page_content;
+            $page_id = $item->id;
         }
 
         if (strlen($browser_title) == 0)
@@ -66,19 +68,23 @@ class PageController extends BaseController
 
         echo $this->blade->render('generic-page', [
           'browser_title' => $browser_title,
-          'page_content'  => $page_content
+          'page_content'  => $page_content,
+          'page_id' => $page_id,
         ]);
     }
-
+    /*
     public function getShow404()
     {
           echo $this->blade->render('page-not-found');
     }
+    */
+    /*
     public function getSuccessPage()
     {
           echo $this->blade->render('success');
           //echo "success";
     }
+    */
 }
 
  ?>

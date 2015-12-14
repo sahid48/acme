@@ -17,12 +17,19 @@ class AuthenticationController extends BaseController
         //echo $this->twig->render('login.html');
 
         //use blade
-        echo $this->blade->render("login");
+        echo $this->blade->render("login", [
+          'signer' => $this->signer
+        ]);
     }
 
 
     public function postShowLoginPage()
     {
+        //for csrf
+        if (!$this->signer->validateSignature($_POST['_token'])) {
+            header('HTTP/1.0 400 Bad Request');
+            exit;
+        }
         //echo "posted";
         $okay = true;
         $email = $_REQUEST['email'];
@@ -43,6 +50,11 @@ class AuthenticationController extends BaseController
             $okay = false;
         }
 
+        if ($user->active == 0)
+        {
+            $okay = false;
+        }
+
         if ($okay)
         {
             $_SESSION['user'] = $user;
@@ -53,7 +65,10 @@ class AuthenticationController extends BaseController
         else
         {
             $_SESSION['msg'] = ["Invalid Login"];
-            echo $this->blade->render('login');
+            //echo $this->blade->render('login');
+            echo $this->blade->render("login", [
+              'signer' => $this->signer
+            ]);
             unset($_SESSION['msg']);
             exit();
         }
