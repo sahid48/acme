@@ -12,11 +12,13 @@ $router->map('POST', '/login', 'Acme\Controllers\AuthenticationController@postSh
 
 $router->map('GET', '/logout', 'Acme\Controllers\AuthenticationController@getLogOutPage', 'logout');
 
-$router->map('GET', '/success', 'Acme\Controllers\PageController@getSuccessPage', 'success');
+//$router->map('GET', '/success', 'Acme\Controllers\PageController@getSuccessPage', 'success');
 
 $router->map('GET', '/testdb', 'Acme\Controllers\RegisterController@getTestDB', 'testdb');
 
-$router->map('GET', '/page-not-found', 'Acme\Controllers\PageController@getShow404', '404');
+//$router->map('GET', '/page-not-found', 'Acme\Controllers\PageController@getShow404', '404');
+
+$router->map('GET', '/verify-account', 'Acme\Controllers\RegisterController@getVerifyAccount', 'verify_account');
 
 /*
 $router->map('GET', '/test', function(){
@@ -41,7 +43,25 @@ $router->map('GET', '/test', function(){
 });
 */
 
-$router->map('GET', '/[*]', 'Acme\Controllers\PageController@getShowPage', 'generic_page');
 
+//Testimonail routes
+
+$router->map('GET', '/testimonials', 'Acme\Controllers\TestimonialController@getShowTestimonials', 'testimonials');
+//logged in user routes
+
+if(Acme\Auth\LoggedIn::user()) {
+$router->map('GET', '/add-testimonial', 'Acme\Controllers\TestimonialController@getShowAdd', 'add-testimonial');
+
+$router->map('POST', '/add-testimonial', 'Acme\Controllers\TestimonialController@postShowAdd', 'add-testimonial_post');
+}
+
+
+// admin routes
+if ((Acme\auth\LoggedIn::user()) && (Acme\auth\LoggedIn::user()->access_level == 2)) {
+    $router->map('POST', '/admin/page/edit', 'Acme\controllers\AdminController@postSavePage', 'save_page');
+    $router->map('GET', '/admin/page/add', 'Acme\controllers\AdminController@getAddPage', 'add_page');
+}
+
+$router->map('GET', '/[*]', 'Acme\Controllers\PageController@getShowPage', 'generic_page');
 
  ?>
